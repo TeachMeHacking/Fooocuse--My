@@ -674,17 +674,6 @@ CONTROLNET_MODELS = [
         'id': 9,
         'url': None,
         'dir': None,
-        'file_name': 'ControlNetCannyPreprocess__pyramidCanny',
-        'loader': PyramidCanny,
-        'condition': "canny",
-        'preprocess': True,
-        'default': True,
-        'path': GET_PATH,
-    },
-    {
-        'id': 10,
-        'url': None,
-        'dir': None,
         'file_name': 'ControlNetCPDSPreprocess__cpds',
         'loader': CPDS,
         'condition': "cpds",
@@ -693,7 +682,7 @@ CONTROLNET_MODELS = [
         'path': GET_PATH,
     },
     {
-        'id': 11,
+        'id': 10,
         'url': {
             'select': 0,
             'providers': [
@@ -709,7 +698,7 @@ CONTROLNET_MODELS = [
         'path': GET_PATH,
     },
     {
-        'id': 12,
+        'id': 11,
         'url': {
             'select': 0,
             'providers': [
@@ -725,7 +714,7 @@ CONTROLNET_MODELS = [
         'path': GET_PATH,
     },
     {
-        'id': 13,
+        'id': 12,
         'url': {
             'select': 0,
             'providers': [
@@ -741,7 +730,7 @@ CONTROLNET_MODELS = [
         'path': GET_PATH,
     },
     {
-        'id': 14,
+        'id': 13,
         'url': {
             'select': 0,
             'providers': [
@@ -757,7 +746,7 @@ CONTROLNET_MODELS = [
         'path': GET_PATH,
     },
     {
-        'id': 15,
+        'id': 14,
         'url': None,
         'dir': path_controlnet,
         'file_name': 'ControlNetReColorPreprocess_reColor',
@@ -768,7 +757,7 @@ CONTROLNET_MODELS = [
         'path': GET_PATH,
     },
     {
-        'id': 16,
+        'id': 15,
         'url': None,
         'dir': path_controlnet,
         'file_name': 'ControlNetSketchPreprocess_sketch',
@@ -779,7 +768,7 @@ CONTROLNET_MODELS = [
         'path': GET_PATH,
     },
     {
-        'id': 17,
+        'id': 16,
         'url': None,
         'dir': path_controlnet,
         'file_name': 'ControlNetRevisionPreprocess_revision',
@@ -790,7 +779,7 @@ CONTROLNET_MODELS = [
         'path': GET_PATH,
     },
     {
-        'id': 18,
+        'id': 17,
         'url': None,
         'dir': path_controlnet,
         'file_name': 'ControlNetTileBlurPreprocess_tileBlur',
@@ -801,7 +790,7 @@ CONTROLNET_MODELS = [
         'path': GET_PATH,
     },
     {
-        'id': 19,
+        'id': 18,
         'url': None,
         'dir': path_controlnet,
         'file_name': 'ControlNetTileBlurAnimePreprocess_tileBlurAnime',
