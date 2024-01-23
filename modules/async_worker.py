@@ -661,7 +661,7 @@ def worker():
                     return
                     
             for task in cn_tasks[flags.cn_pose]:
-                apply_controlnet_preprocess(task, get_controlnet_preprocess(controlnet_pose_info))       
+                apply_controlnet_preprocess(task, get_controlnet_preprocess(controlnet_pose_path))       
 
         
         if 'cn' in goals:
