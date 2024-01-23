@@ -9,6 +9,16 @@ import modules.sdxl_styles
 from modules.model_loader import load_file_from_url
 from modules.util import get_files_from_folder
 
+from fooocus_extras.controlnet_preprocess_model.PyramidCanny import PyramidCanny
+from fooocus_extras.controlnet_preprocess_model.CPDS import CPDS
+from fooocus_extras.controlnet_preprocess_model.ZeoDepth import ZoeDetector
+from fooocus_extras.controlnet_preprocess_model.OpenPose import OpenPose
+from fooocus_extras.controlnet_preprocess_model.ReColor import ReColor
+from fooocus_extras.controlnet_preprocess_model.Sketch import Sketch
+from fooocus_extras.controlnet_preprocess_model.Revision import Revision
+from fooocus_extras.controlnet_preprocess_model.TileBlur import TileBlur
+from fooocus_extras.controlnet_preprocess_model.TileBlurAnime import TileBlurAnime
+
 
 config_path = os.path.abspath("./config.txt")
 config_example_path = os.path.abspath("config_modification_tutorial.txt")
