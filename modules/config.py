@@ -515,4 +515,323 @@ def downloading_upscale_model():
     return os.path.join(path_upscale_models, 'fooocus_upscaler_s409985e5.bin')
 
 
+CONTROLNET_MODELS = [
+    # ControlnetModels
+    {
+        'id': 0,
+        'url': {
+            'select': 0,
+            'providers': [
+                'https://huggingface.co/stabilityai/control-lora/resolve/main/control-LoRAs-rank128/control-lora-depth-rank128.safetensors'
+            ]
+        },
+        'dir': controlnet_models_dir,
+        'file_name': 'control-lora-depth-rank128.safetensors',
+        'loader': 'ControlNet',
+        'condition': "depth",
+        'preprocess': False,  # is preprocess model?
+        'default': True,  # default model?
+        'path': GET_PATH,
+    },
+    {
+        'id': 1,
+        'url': {
+            'select': 0,
+            'providers': [
+                'https://huggingface.co/lllyasviel/misc/resolve/main/control-lora-canny-rank128.safetensors'
+            ]
+        },
+        'dir': controlnet_models_dir,
+        'file_name': 'control-lora-canny-rank128.safetensors',
+        'loader': 'ControlNet',
+        'condition': "canny",
+        'preprocess': False,
+        'default': True,
+        'path': GET_PATH,
+    },
+    {
+        'id': 2,
+        'url': {
+            'select': 0,
+            'providers': [
+                'https://huggingface.co/lllyasviel/sd_control_collection/resolve/main/thibaud_xl_openpose_256lora.safetensors'
+            ]
+        },
+        'dir': controlnet_models_dir,
+        'file_name': 'thibaud_xl_openpose_256lora.safetensors',
+        'loader': 'ControlNet',
+        'condition': "pose",
+        'preprocess': False,
+        'default': True,
+        'path': GET_PATH,
+    },
+    {
+        'id': 3,
+        'url': {
+            'select': 0,
+            'providers': [
+                'https://huggingface.co/lllyasviel/misc/resolve/main/fooocus_xl_cpds_128.safetensors'
+            ]
+        },
+        'dir': controlnet_models_dir,
+        'file_name': 'fooocus_xl_cpds_128.safetensors',
+        'loader': 'ControlNet',
+        'condition': "cpds",
+        'preprocess': False,
+        'default': True,
+        'path': GET_PATH,
+    },
+    {
+        'id': 4,
+        'url': {
+            'select': 0,
+            'providers': [
+                'https://huggingface.co/stabilityai/control-lora/resolve/main/control-LoRAs-rank128/control-lora-recolor-rank128.safetensors'
+            ]
+        },
+        'dir': controlnet_models_dir,
+        'file_name': 'control-lora-recolor-rank128.safetensors',
+        'loader': 'ControlNet',
+        'condition': "recolor",
+        'preprocess': False,
+        'default': True,
+        'path': GET_PATH,
+    },
+    {
+        'id': 5,
+        'url': {
+            'select': 0,
+            'providers': [
+                'https://huggingface.co/stabilityai/control-lora/resolve/main/control-LoRAs-rank128/control-lora-sketch-rank128-metadata.safetensors'
+            ]
+        },
+        'dir': controlnet_models_dir,
+        'file_name': 'control-lora-sketch-rank128-metadata.safetensors',
+        'loader': 'ControlNet',
+        'condition': "sketch",
+        'preprocess': False,
+        'default': True,
+        'path': GET_PATH,
+    },
+    {
+        'id': 6,
+        'url': {
+            'select': 0,
+            'providers': [
+                'https://huggingface.co/stabilityai/control-lora/resolve/main/revision/clip_vision_g.safetensors'
+            ]
+        },
+        'dir': controlnet_models_dir,
+        'file_name': 'clip_vision_g.safetensors',
+        'loader': 'ControlNet',
+        'condition': "revision",
+        'preprocess': False,
+        'default': True,
+        'path': GET_PATH,
+    },
+    {
+        'id': 7,
+        'url': {
+            'select': 0,
+            'providers': [
+                'https://huggingface.co/lllyasviel/sd_control_collection/resolve/main/kohya_controllllite_xl_blur.safetensors'
+            ]
+        },
+        'dir': controlnet_models_dir,
+        'file_name': 'kohya_controllllite_xl_blur.safetensors',
+        'loader': 'ControlNet',
+        'condition': "tile_blur",
+        'preprocess': False,
+        'default': True,
+        'path': GET_PATH,
+    },
+    {
+        'id': 8,
+        'url': {
+            'select': 0,
+            'providers': [
+                'https://huggingface.co/lllyasviel/sd_control_collection/resolve/main/kohya_controllllite_xl_blur_anime.safetensors'
+            ]
+        },
+        'dir': controlnet_models_dir,
+        'file_name': 'kohya_controllllite_xl_blur_anime.safetensors',
+        'loader': 'ControlNet',
+        'condition': "tile_blur_anime",
+        'preprocess': False,
+        'default': True,
+        'path': GET_PATH,
+    },
+    # preprocessing
+    {
+        'id': 9,
+        'url': None,
+        'dir': None,
+        'file_name': 'ControlNetCannyPreprocess__pyramidCanny',
+        'loader': PyramidCanny,
+        'condition': "canny",
+        'preprocess': True,
+        'default': True,
+        'path': GET_PATH,
+    },
+    {
+        'id': 10,
+        'url': None,
+        'dir': None,
+        'file_name': 'ControlNetCPDSPreprocess__cpds',
+        'loader': CPDS,
+        'condition': "cpds",
+        'preprocess': True,
+        'default': True,
+        'path': GET_PATH,
+    },
+    {
+        'id': 11,
+        'url': {
+            'select': 0,
+            'providers': [
+                'https://huggingface.co/lllyasviel/Annotators/resolve/main/ZoeD_M12_N.pt',
+            ]
+        },
+        'dir': controlnet_models_dir,
+        'file_name': 'ZoeD_M12_N.pt',
+        'loader': ZoeDetector,
+        'condition': "depth",
+        'preprocess': True,
+        'default': True,
+        'path': GET_PATH,
+    },
+    {
+        'id': 12,
+        'url': {
+            'select': 0,
+            'providers': [
+                'https://huggingface.co/lllyasviel/Annotators/resolve/main/body_pose_model.pth',
+            ]
+        },
+        'dir': controlnet_models_dir,
+        'file_name': 'body_pose_model.pth',
+        'loader': OpenPose,
+        'condition': "pose",
+        'preprocess': True,
+        'default': True,
+        'path': GET_PATH,
+    },
+    {
+        'id': 13,
+        'url': {
+            'select': 0,
+            'providers': [
+                'https://huggingface.co/lllyasviel/Annotators/resolve/main/hand_pose_model.pth',
+            ]
+        },
+        'dir': controlnet_models_dir,
+        'file_name': 'hand_pose_model.pth',
+        'loader': OpenPose,
+        'condition': "pose",
+        'preprocess': True,
+        'default': True,
+        'path': GET_PATH,
+    },
+    {
+        'id': 14,
+        'url': {
+            'select': 0,
+            'providers': [
+                'https://huggingface.co/lllyasviel/Annotators/resolve/main/facenet.pth',
+            ]
+        },
+        'dir': controlnet_models_dir,
+        'file_name': 'facenet.pth',
+        'loader': OpenPose,
+        'condition': "pose",
+        'preprocess': True,
+        'default': True,
+        'path': GET_PATH,
+    },
+    {
+        'id': 15,
+        'url': None,
+        'dir': controlnet_models_dir,
+        'file_name': 'ControlNetReColorPreprocess_reColor',
+        'loader': ReColor,
+        'condition': "recolor",
+        'preprocess': True,
+        'default': True,
+        'path': GET_PATH,
+    },
+    {
+        'id': 16,
+        'url': None,
+        'dir': controlnet_models_dir,
+        'file_name': 'ControlNetSketchPreprocess_sketch',
+        'loader': Sketch,
+        'condition': "sketch",
+        'preprocess': True,
+        'default': True,
+        'path': GET_PATH,
+    },
+    {
+        'id': 17,
+        'url': None,
+        'dir': controlnet_models_dir,
+        'file_name': 'ControlNetRevisionPreprocess_revision',
+        'loader': Revision,
+        'condition': "revision",
+        'preprocess': True,
+        'default': True,
+        'path': GET_PATH,
+    },
+    {
+        'id': 18,
+        'url': None,
+        'dir': controlnet_models_dir,
+        'file_name': 'ControlNetTileBlurPreprocess_tileBlur',
+        'loader': TileBlur,
+        'condition': "tile_blur",
+        'preprocess': True,
+        'default': True,
+        'path': GET_PATH,
+    },
+    {
+        'id': 19,
+        'url': None,
+        'dir': controlnet_models_dir,
+        'file_name': 'ControlNetTileBlurAnimePreprocess_tileBlurAnime',
+        'loader': TileBlurAnime,
+        'condition': "tile_blur_anime",
+        'preprocess': True,
+        'default': True,
+        'path': GET_PATH,
+    },
+
+]
+
+
+def downloading_controlnet_models(condition):
+    def download(m):
+        url = m['url']
+        if m['default']:
+            if url is not None:
+                select = url['select']
+                providers = url['providers']
+                if not select < len(providers):
+                    raise ValueError(f"Invalid url select: {select} for {providers}")
+                load_file_from_url(
+                    url=providers[select],
+                    model_dir=m['dir'],
+                    file_name=m['file_name']
+                )
+        return m
+
+    if condition not in set([model['condition'] for model in CONTROLNET_MODELS]):
+        raise ValueError(f"Invalid condition: {condition}")
+    models = [download(m) for m in CONTROLNET_MODELS if m['condition'] == condition]
+    controlnet_models = [m for m in models if m['loader'] == 'ControlNet']
+    preprocess_models = [m for m in models if m['loader'] != 'ControlNet']
+    assert 1 == len(controlnet_models)
+    assert 1 <= len(preprocess_models)
+    return models
+
+
+
 update_all_model_names()
