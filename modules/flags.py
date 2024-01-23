@@ -24,7 +24,7 @@ cn_ip = "ImagePrompt"
 cn_ip_face = "FaceSwap"
 cn_canny = "PyraCanny"
 cn_cpds = "CPDS"
-cn_pose = "POSE"
+cn_pose = "Pose"
 
 ip_list = [cn_ip, cn_canny, cn_cpds, cn_ip_face, cn_pose]
 default_ip = cn_ip
