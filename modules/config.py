@@ -465,7 +465,7 @@ def downloading_controlnet_pose():
         model_dir=path_controlnet,
         file_name='pose_controlnet.safetensors'
     )
-    return os.path.join(path_controlnet, 'fooocus_xl_cpds_128.safetensors')
+    return os.path.join(path_controlnet, file_name)
 
 
 def downloading_ip_adapters(v):
