@@ -325,7 +325,7 @@ def worker():
                 if len(cn_tasks[flags.cn_cpds]) > 0:
                     controlnet_cpds_path = modules.config.downloading_controlnet_cpds()
                 if len(cn_tasks[flags.cn_pose]) > 0:
-                    controlnet_pose_path = modules.config.downloading_controlnet_pose()
+                    controlnet_pose_path = modules.config.downloading_controlnet_models('pose')
                 if len(cn_tasks[flags.cn_ip]) > 0:
                     clip_vision_path, ip_negative_path, ip_adapter_path = modules.config.downloading_ip_adapters('ip')
                 if len(cn_tasks[flags.cn_ip_face]) > 0:
