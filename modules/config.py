@@ -459,6 +459,14 @@ def downloading_controlnet_cpds():
     )
     return os.path.join(path_controlnet, 'fooocus_xl_cpds_128.safetensors')
 
+def downloading_controlnet_pose():
+    load_file_from_url(
+        url='https://huggingface.co/lllyasviel/misc/resolve/main/fooocus_xl_cpds_128.safetensors',
+        model_dir=path_controlnet,
+        file_name='fooocus_xl_cpds_128.safetensors'
+    )
+    return os.path.join(path_controlnet, 'fooocus_xl_cpds_128.safetensors')
+
 
 def downloading_ip_adapters(v):
     assert v in ['ip', 'face']
