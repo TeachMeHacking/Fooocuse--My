@@ -633,6 +633,38 @@ def worker():
             print(f'Final resolution is {str((final_height, final_width))}, latent is {str((height, width))}.')
 
         if 'cn' in goals:
+            def get_controlnet_preprocess(info):
+                def get_paths(ms):
+                    ms = sorted(ms, key=lambda x: x['id'])
+                    paths = [
+                        {
+                            m['file_name']: m['path'](m) if m['path'](m) is not None else m['file_name']
+                        } for m in ms
+                    ]
+                    return paths
+
+                def get_1st_path(paths):
+                    return list(paths[0].values())[0]
+
+                ms = [m for m in info if m['preprocess']]
+                path = get_1st_path(get_paths(ms))
+                return pipeline.loaded_ControlNets[path]
+
+            def apply_controlnet_preprocess(task, preprocess_model):
+                cn_img, cn_stop, cn_weight = task
+                cn_img = resize_image(HWC3(cn_img), width=width, height=height)
+                cn_img = preprocess_model(cn_img)
+                cn_img = HWC3(cn_img)
+                task[0] = core.numpy_to_pytorch(cn_img)
+                if advanced_parameters.debugging_cn_preprocessor:
+                    outputs.append(['results', [cn_img]])
+                    return
+                    
+            for task in cn_tasks[flags.cn_pose]:
+                apply_controlnet_preprocess(task, get_controlnet_preprocess(controlnet_pose_info))       
+
+        
+        if 'cn' in goals:
             for task in cn_tasks[flags.cn_canny]:
                 cn_img, cn_stop, cn_weight = task
                 cn_img = resize_image(HWC3(cn_img), width=width, height=height)
