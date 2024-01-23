@@ -515,6 +515,14 @@ def downloading_upscale_model():
     return os.path.join(path_upscale_models, 'fooocus_upscaler_s409985e5.bin')
 
 
+def GET_PATH(m):
+    dir = m['dir']
+    file_name = m['file_name']
+    if dir is None or file_name is None:
+        return None
+    else:
+        return os.path.join(dir, file_name)
+
 CONTROLNET_MODELS = [
     # ControlnetModels
     {
@@ -805,6 +813,8 @@ CONTROLNET_MODELS = [
     },
 
 ]
+
+
 
 
 def downloading_controlnet_models(condition):
