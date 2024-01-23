@@ -461,9 +461,9 @@ def downloading_controlnet_cpds():
 
 def downloading_controlnet_pose():
     load_file_from_url(
-        url='https://huggingface.co/lllyasviel/misc/resolve/main/fooocus_xl_cpds_128.safetensors',
+        url='https://huggingface.co/lllyasviel/sd_control_collection/resolve/main/thibaud_xl_openpose_256lora.safetensors',
         model_dir=path_controlnet,
-        file_name='fooocus_xl_cpds_128.safetensors'
+        file_name='pose_controlnet.safetensors'
     )
     return os.path.join(path_controlnet, 'fooocus_xl_cpds_128.safetensors')
 
