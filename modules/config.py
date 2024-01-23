@@ -525,7 +525,7 @@ CONTROLNET_MODELS = [
                 'https://huggingface.co/stabilityai/control-lora/resolve/main/control-LoRAs-rank128/control-lora-depth-rank128.safetensors'
             ]
         },
-        'dir': controlnet_models_dir,
+        'dir': path_controlnet,
         'file_name': 'control-lora-depth-rank128.safetensors',
         'loader': 'ControlNet',
         'condition': "depth",
@@ -541,7 +541,7 @@ CONTROLNET_MODELS = [
                 'https://huggingface.co/lllyasviel/misc/resolve/main/control-lora-canny-rank128.safetensors'
             ]
         },
-        'dir': controlnet_models_dir,
+        'dir': path_controlnet,
         'file_name': 'control-lora-canny-rank128.safetensors',
         'loader': 'ControlNet',
         'condition': "canny",
@@ -557,7 +557,7 @@ CONTROLNET_MODELS = [
                 'https://huggingface.co/lllyasviel/sd_control_collection/resolve/main/thibaud_xl_openpose_256lora.safetensors'
             ]
         },
-        'dir': controlnet_models_dir,
+        'dir': path_controlnet,
         'file_name': 'thibaud_xl_openpose_256lora.safetensors',
         'loader': 'ControlNet',
         'condition': "pose",
@@ -573,7 +573,7 @@ CONTROLNET_MODELS = [
                 'https://huggingface.co/lllyasviel/misc/resolve/main/fooocus_xl_cpds_128.safetensors'
             ]
         },
-        'dir': controlnet_models_dir,
+        'dir': path_controlnet,
         'file_name': 'fooocus_xl_cpds_128.safetensors',
         'loader': 'ControlNet',
         'condition': "cpds",
@@ -589,7 +589,7 @@ CONTROLNET_MODELS = [
                 'https://huggingface.co/stabilityai/control-lora/resolve/main/control-LoRAs-rank128/control-lora-recolor-rank128.safetensors'
             ]
         },
-        'dir': controlnet_models_dir,
+        'dir': path_controlnet,
         'file_name': 'control-lora-recolor-rank128.safetensors',
         'loader': 'ControlNet',
         'condition': "recolor",
@@ -605,7 +605,7 @@ CONTROLNET_MODELS = [
                 'https://huggingface.co/stabilityai/control-lora/resolve/main/control-LoRAs-rank128/control-lora-sketch-rank128-metadata.safetensors'
             ]
         },
-        'dir': controlnet_models_dir,
+        'dir': path_controlnet,
         'file_name': 'control-lora-sketch-rank128-metadata.safetensors',
         'loader': 'ControlNet',
         'condition': "sketch",
@@ -621,7 +621,7 @@ CONTROLNET_MODELS = [
                 'https://huggingface.co/stabilityai/control-lora/resolve/main/revision/clip_vision_g.safetensors'
             ]
         },
-        'dir': controlnet_models_dir,
+        'dir': path_controlnet,
         'file_name': 'clip_vision_g.safetensors',
         'loader': 'ControlNet',
         'condition': "revision",
@@ -637,7 +637,7 @@ CONTROLNET_MODELS = [
                 'https://huggingface.co/lllyasviel/sd_control_collection/resolve/main/kohya_controllllite_xl_blur.safetensors'
             ]
         },
-        'dir': controlnet_models_dir,
+        'dir': path_controlnet,
         'file_name': 'kohya_controllllite_xl_blur.safetensors',
         'loader': 'ControlNet',
         'condition': "tile_blur",
@@ -653,7 +653,7 @@ CONTROLNET_MODELS = [
                 'https://huggingface.co/lllyasviel/sd_control_collection/resolve/main/kohya_controllllite_xl_blur_anime.safetensors'
             ]
         },
-        'dir': controlnet_models_dir,
+        'dir': path_controlnet,
         'file_name': 'kohya_controllllite_xl_blur_anime.safetensors',
         'loader': 'ControlNet',
         'condition': "tile_blur_anime",
@@ -692,7 +692,7 @@ CONTROLNET_MODELS = [
                 'https://huggingface.co/lllyasviel/Annotators/resolve/main/ZoeD_M12_N.pt',
             ]
         },
-        'dir': controlnet_models_dir,
+        'dir': path_controlnet,
         'file_name': 'ZoeD_M12_N.pt',
         'loader': ZoeDetector,
         'condition': "depth",
@@ -708,7 +708,7 @@ CONTROLNET_MODELS = [
                 'https://huggingface.co/lllyasviel/Annotators/resolve/main/body_pose_model.pth',
             ]
         },
-        'dir': controlnet_models_dir,
+        'dir': path_controlnet,
         'file_name': 'body_pose_model.pth',
         'loader': OpenPose,
         'condition': "pose",
@@ -724,7 +724,7 @@ CONTROLNET_MODELS = [
                 'https://huggingface.co/lllyasviel/Annotators/resolve/main/hand_pose_model.pth',
             ]
         },
-        'dir': controlnet_models_dir,
+        'dir': path_controlnet,
         'file_name': 'hand_pose_model.pth',
         'loader': OpenPose,
         'condition': "pose",
@@ -740,7 +740,7 @@ CONTROLNET_MODELS = [
                 'https://huggingface.co/lllyasviel/Annotators/resolve/main/facenet.pth',
             ]
         },
-        'dir': controlnet_models_dir,
+        'dir': path_controlnet,
         'file_name': 'facenet.pth',
         'loader': OpenPose,
         'condition': "pose",
@@ -751,7 +751,7 @@ CONTROLNET_MODELS = [
     {
         'id': 15,
         'url': None,
-        'dir': controlnet_models_dir,
+        'dir': path_controlnet,
         'file_name': 'ControlNetReColorPreprocess_reColor',
         'loader': ReColor,
         'condition': "recolor",
@@ -762,7 +762,7 @@ CONTROLNET_MODELS = [
     {
         'id': 16,
         'url': None,
-        'dir': controlnet_models_dir,
+        'dir': path_controlnet,
         'file_name': 'ControlNetSketchPreprocess_sketch',
         'loader': Sketch,
         'condition': "sketch",
@@ -773,7 +773,7 @@ CONTROLNET_MODELS = [
     {
         'id': 17,
         'url': None,
-        'dir': controlnet_models_dir,
+        'dir': path_controlnet,
         'file_name': 'ControlNetRevisionPreprocess_revision',
         'loader': Revision,
         'condition': "revision",
@@ -784,7 +784,7 @@ CONTROLNET_MODELS = [
     {
         'id': 18,
         'url': None,
-        'dir': controlnet_models_dir,
+        'dir': path_controlnet,
         'file_name': 'ControlNetTileBlurPreprocess_tileBlur',
         'loader': TileBlur,
         'condition': "tile_blur",
@@ -795,7 +795,7 @@ CONTROLNET_MODELS = [
     {
         'id': 19,
         'url': None,
-        'dir': controlnet_models_dir,
+        'dir': path_controlnet,
         'file_name': 'ControlNetTileBlurAnimePreprocess_tileBlurAnime',
         'loader': TileBlurAnime,
         'condition': "tile_blur_anime",
