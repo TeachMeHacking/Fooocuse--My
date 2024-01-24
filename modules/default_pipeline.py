@@ -41,6 +41,49 @@ def refresh_controlnets(model_paths):
     return
 
 
+
+@torch.no_grad()
+@torch.inference_mode()
+def refresh_controlnets2(models):
+
+    global loaded_ControlNets
+
+    def get_paths(ms):
+        ms = sorted(ms, key=lambda x: x['id'])
+        paths = [
+            {
+                m['file_name']: m['path'](m) if m['path'](m) is not None else m['file_name']
+            } for m in ms
+        ]
+        return paths
+
+    def get_1st_path(paths):
+        return list(paths[0].values())[0]
+
+    def cache_loader(loader, model_list):
+        loader = core.load_controlnet if loader == 'ControlNet' else loader
+        paths = get_paths(model_list)
+        path_1st = get_1st_path(paths)
+        return loader(path_1st if 1 == len(paths) else paths) if not path_1st in loaded_ControlNets else \
+            loaded_ControlNets[path_1st]
+
+    controlnet_models = [m for m in models if m['loader'] == 'ControlNet']
+    cache_controlnet = {get_1st_path(get_paths([m,])): cache_loader('ControlNet', [m,]) for m in controlnet_models}
+
+    preprocess_models = [m for m in models if m['loader'] != 'ControlNet']
+    preprocess_loaders = set([m['loader'] for m in preprocess_models])
+    preprocess_loaders = {l: [] for l in preprocess_loaders}
+    for m in preprocess_models:
+        preprocess_loaders[m['loader']].append(m)
+
+    cache_controlnet_preprocess = {get_1st_path(get_paths(ms)): cache_loader(l, ms) for l, ms in preprocess_loaders.items()}
+    # cache = {k: v for k, v in cache.items() if k is not None and v is not None}
+
+    loaded_ControlNets =  {**cache_controlnet, **cache_controlnet_preprocess}
+    return
+
+
+
 @torch.no_grad()
 @torch.inference_mode()
 def assert_model_integrity():
