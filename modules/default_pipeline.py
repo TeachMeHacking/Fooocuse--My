@@ -24,6 +24,7 @@ final_refiner_unet = None
 final_refiner_vae = None
 
 loaded_ControlNets = {}
+loaded_ControlNets2 = {}
 
 
 @torch.no_grad()
@@ -46,7 +47,7 @@ def refresh_controlnets(model_paths):
 @torch.inference_mode()
 def refresh_controlnets2(models):
 
-    global loaded_ControlNets
+    global loaded_ControlNets2
 
     def get_paths(ms):
         ms = sorted(ms, key=lambda x: x['id'])
@@ -64,8 +65,8 @@ def refresh_controlnets2(models):
         loader = core.load_controlnet if loader == 'ControlNet' else loader
         paths = get_paths(model_list)
         path_1st = get_1st_path(paths)
-        return loader(path_1st if 1 == len(paths) else paths) if not path_1st in loaded_ControlNets else \
-            loaded_ControlNets[path_1st]
+        return loader(path_1st if 1 == len(paths) else paths) if not path_1st in loaded_ControlNets2 else \
+            loaded_ControlNets2[path_1st]
 
     controlnet_models = [m for m in models if m['loader'] == 'ControlNet']
     cache_controlnet = {get_1st_path(get_paths([m,])): cache_loader('ControlNet', [m,]) for m in controlnet_models}
@@ -79,7 +80,7 @@ def refresh_controlnets2(models):
     cache_controlnet_preprocess = {get_1st_path(get_paths(ms)): cache_loader(l, ms) for l, ms in preprocess_loaders.items()}
     # cache = {k: v for k, v in cache.items() if k is not None and v is not None}
 
-    loaded_ControlNets =  {**cache_controlnet, **cache_controlnet_preprocess}
+    loaded_ControlNets2 =  {**cache_controlnet, **cache_controlnet_preprocess}
     return
 
 

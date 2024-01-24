@@ -334,11 +334,11 @@ def worker():
                 progressbar(async_task, 1, 'Loading control models ...')
 
         # Load or unload CNs
-        print(controlnet_pose_path[0]["dir"]+"/"+controlnet_pose_path[0]["file_name"])
+        # print(controlnet_pose_path[0]["dir"]+"/"+controlnet_pose_path[0]["file_name"])
         controlnet_pose_path_str = controlnet_pose_path[0]["dir"]+"/"+controlnet_pose_path[0]["file_name"]
         pipeline.refresh_controlnets([controlnet_canny_path, controlnet_cpds_path,controlnet_pose_path_str])
-        # if controlnet_pose_path is not None:
-        #     pipeline.refresh_controlnets2(controlnet_pose_path)
+        if controlnet_pose_path is not None:
+            pipeline.refresh_controlnets2(controlnet_pose_path)
         ip_adapter.load_ip_adapter(clip_vision_path, ip_negative_path, ip_adapter_path)
         ip_adapter.load_ip_adapter(clip_vision_path, ip_negative_path, ip_adapter_face_path)
 
@@ -639,8 +639,21 @@ def worker():
 
         if 'cn' in goals:
             def get_controlnet_preprocess(info):
-                print("aaaaaaaaaaaaaaaaaa" + info)
-                return pipeline.loaded_ControlNets[info]
+                def get_paths(ms):
+                    ms = sorted(ms, key=lambda x: x['id'])
+                    paths = [
+                        {
+                            m['file_name']: m['path'](m) if m['path'](m) is not None else m['file_name']
+                        } for m in ms
+                    ]
+                    return paths
+
+                def get_1st_path(paths):
+                    return list(paths[0].values())[0]
+
+                ms = [m for m in info if m['preprocess']]
+                path = get_1st_path(get_paths(ms))
+                return pipeline.loaded_ControlNets2[path]
 
             def apply_controlnet_preprocess(task, preprocess_model):
                 cn_img, cn_stop, cn_weight = task
