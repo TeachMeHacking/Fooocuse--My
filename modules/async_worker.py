@@ -779,10 +779,10 @@ def worker():
                 positive_cond, negative_cond = task['c'], task['uc']
 
                 if 'cn' in goals:
-                    print(controlnet_pose_path[0]["dir"]+"/"+controlnet_pose_path[0]["dir"])
+                    print(controlnet_pose_path[0]["dir"]+"/"+controlnet_pose_path[0]["file_name"])
                     for cn_flag, cn_path in [
                         (flags.cn_canny, controlnet_canny_path),
-                        (flags.cn_pose, controlnet_pose_path[0]["dir"]+"/"+controlnet_pose_path[0]["dir"]),
+                        (flags.cn_pose, controlnet_pose_path[0]["dir"]+"/"+controlnet_pose_path[0]["file_name"]),
                         # (flags.cn_pose,
                         #  [m['path'](m) for m in controlnet_pose_path if not m['preprocess']][
                         #      0] if controlnet_pose_path and 0 < len(controlnet_pose_path) else None),
