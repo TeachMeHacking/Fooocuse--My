@@ -784,7 +784,7 @@ def worker():
                         # (flags.cn_pose, controlnet_pose_path),
                         (flags.cn_pose,
                          [m['path'](m) for m in controlnet_pose_path if not m['preprocess']][
-                             0] if 0 < len(controlnet_pose_path) else None),
+                             0] if controlnet_pose_path and 0 < len(controlnet_pose_path) else None),
                         (flags.cn_cpds, controlnet_cpds_path)
                     ]:
                         for cn_img, cn_stop, cn_weight in cn_tasks[cn_flag]:
