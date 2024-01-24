@@ -665,7 +665,90 @@ def worker():
             for task in cn_tasks[flags.cn_pose]:
                 apply_controlnet_preprocess(task, get_controlnet_preprocess(controlnet_pose_path))       
 
-        
+        #  Now New Add 
+        for current_task_id, task in enumerate(tasks):
+            execution_start_time = time.perf_counter()
+
+            try:
+                positive_cond, negative_cond = task['c'], task['uc']
+
+                if 'cn' in goals:
+                    for cn_flag, cn_path in [
+                        (flags.cn_canny, controlnet_canny_path),
+                        # (flags.cn_pose, controlnet_pose_path),
+                        (flags.cn_pose,
+                         [m['path'](m) for m in controlnet_pose_path if not m['preprocess']][
+                             0] if controlnet_pose_path and 0 < len(controlnet_pose_path) else None),
+                        (flags.cn_cpds, controlnet_cpds_path)
+                    ]:
+                        for cn_img, cn_stop, cn_weight in cn_tasks[cn_flag]:
+                            positive_cond, negative_cond = core.apply_controlnet(
+                                positive_cond, negative_cond,
+                                pipeline.loaded_ControlNets[cn_path], cn_img, cn_weight, 0, cn_stop)
+
+                imgs = pipeline.process_diffusion(
+                    positive_cond=positive_cond,
+                    negative_cond=negative_cond,
+                    steps=steps,
+                    switch=switch,
+                    width=width,
+                    height=height,
+                    image_seed=task['task_seed'],
+                    callback=callback,
+                    sampler_name=final_sampler_name,
+                    scheduler_name=final_scheduler_name,
+                    latent=initial_latent,
+                    denoise=denoising_strength,
+                    tiled=tiled,
+                    cfg_scale=cfg_scale,
+                    refiner_swap_method=refiner_swap_method
+                )
+
+                del task['c'], task['uc'], positive_cond, negative_cond  # Save memory
+
+                if inpaint_worker.current_task is not None:
+                    imgs = [inpaint_worker.current_task.post_process(x) for x in imgs]
+
+                for x in imgs:
+                    d = [
+                        ('Prompt', task['log_positive_prompt']),
+                        ('Negative Prompt', task['log_negative_prompt']),
+                        ('Fooocus V2 Expansion', task['expansion']),
+                        ('Styles', str(raw_style_selections)),
+                        ('Performance', performance_selection),
+                        ('Resolution', str((width, height))),
+                        ('Sharpness', sharpness),
+                        ('Guidance Scale', guidance_scale),
+                        ('ADM Guidance', str((
+                            modules.patch.positive_adm_scale,
+                            modules.patch.negative_adm_scale,
+                            modules.patch.adm_scaler_end))),
+                        ('Base Model', base_model_name),
+                        ('Refiner Model', refiner_model_name),
+                        ('Refiner Switch', refiner_switch),
+                        ('Sampler', sampler_name),
+                        ('Scheduler', scheduler_name),
+                        ('Seed', task['task_seed']),
+                    ]
+                    for li, (n, w) in enumerate(loras):
+                        if n != 'None':
+                            d.append((f'LoRA {li + 1}', f'{n} : {w}'))
+                    d.append(('Version', 'v' + fooocus_version.version))
+                    log(x, d)
+
+                yield_result(async_task, imgs, do_not_show_finished_images=len(tasks) == 1)
+            except ldm_patched.modules.model_management.InterruptProcessingException as e:
+                if shared.last_stop == 'skip':
+                    print('User skipped')
+                    continue
+                else:
+                    print('User stopped')
+                    break
+
+            execution_time = time.perf_counter() - execution_start_time
+            print(f'Generating and saving time: {execution_time:.2f} seconds')
+
+
         if 'cn' in goals:
             for task in cn_tasks[flags.cn_canny]:
                 cn_img, cn_stop, cn_weight = task

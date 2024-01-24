@@ -69,7 +69,7 @@ def refresh_controlnets2(models):
 
     controlnet_models = [m for m in models if m['loader'] == 'ControlNet']
     cache_controlnet = {get_1st_path(get_paths([m,])): cache_loader('ControlNet', [m,]) for m in controlnet_models}
-
+    
     preprocess_models = [m for m in models if m['loader'] != 'ControlNet']
     preprocess_loaders = set([m['loader'] for m in preprocess_models])
     preprocess_loaders = {l: [] for l in preprocess_loaders}
