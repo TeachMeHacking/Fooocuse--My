@@ -691,7 +691,7 @@ def worker():
                     return
                 
             for task in cn_tasks[flags.cn_pose]:
-                apply_controlnet_preprocess(task, get_controlnet_preprocess(controlnet_pose_path_str))
+                apply_controlnet_preprocess(task, get_controlnet_preprocess(controlnet_pose_path))
 
             for task in cn_tasks[flags.cn_ip]:
                 cn_img, cn_stop, cn_weight = task
