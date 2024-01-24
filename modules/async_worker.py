@@ -335,7 +335,8 @@ def worker():
 
         # Load or unload CNs
         pipeline.refresh_controlnets([controlnet_canny_path, controlnet_cpds_path])
-        pipeline.refresh_controlnets2(controlnet_pose_path)
+        if controlnet_pose_path is not None:
+            pipeline.refresh_controlnets2(controlnet_pose_path)
         ip_adapter.load_ip_adapter(clip_vision_path, ip_negative_path, ip_adapter_path)
         ip_adapter.load_ip_adapter(clip_vision_path, ip_negative_path, ip_adapter_face_path)
 
