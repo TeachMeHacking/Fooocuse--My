@@ -635,6 +635,7 @@ def worker():
             height, width = H * 8, W * 8
             final_height, final_width = inpaint_worker.current_task.image.shape[:2]
             print(f'Final resolution is {str((final_height, final_width))}, latent is {str((height, width))}.')
+            
 
         if 'cn' in goals:
             def get_controlnet_preprocess(info):
@@ -652,6 +653,7 @@ def worker():
 
                 ms = [m for m in info if m['preprocess']]
                 path = get_1st_path(get_paths(ms))
+                print("aaaaaaaaaaaaaaaaaa" + path)
                 return pipeline.loaded_ControlNets[path]
 
             def apply_controlnet_preprocess(task, preprocess_model):
@@ -663,12 +665,7 @@ def worker():
                 if advanced_parameters.debugging_cn_preprocessor:
                     outputs.append(['results', [cn_img]])
                     return
-                    
-            for task in cn_tasks[flags.cn_pose]:
-                apply_controlnet_preprocess(task, get_controlnet_preprocess(controlnet_pose_path))       
 
-
-        if 'cn' in goals:
             for task in cn_tasks[flags.cn_canny]:
                 cn_img, cn_stop, cn_weight = task
                 cn_img = resize_image(HWC3(cn_img), width=width, height=height)
@@ -693,6 +690,10 @@ def worker():
                 if advanced_parameters.debugging_cn_preprocessor:
                     yield_result(async_task, cn_img, do_not_show_finished_images=True)
                     return
+                
+            for task in cn_tasks[flags.cn_pose]:
+                apply_controlnet_preprocess(task, get_controlnet_preprocess(controlnet_pose_path))
+
             for task in cn_tasks[flags.cn_ip]:
                 cn_img, cn_stop, cn_weight = task
                 cn_img = HWC3(cn_img)
